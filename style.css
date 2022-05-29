@@ -1,14 +1,6 @@
-/* html {
-    box-sizing: border-box;
-  }
-  *, *::before, *::after {
-    box-sizing: inherit;
-  } */
-  
-
 #grid-container {
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     border: 1px black solid;
     display: flex;
     flex-wrap: wrap;
@@ -16,8 +8,7 @@
 
 
 .grid-square { 
-    width: 35.5px;  /*width and height hardcoded using formula for 8boxes */
-    height: 35.5px;
+
     border: 1px solid orange;
 }
 
