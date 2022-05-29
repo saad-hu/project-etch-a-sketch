@@ -1,17 +1,19 @@
-const containerDimension = 350; //600px
+const containerDimension = 600; //600px
 const squareBorder = 1; //1px border
+const defaultGridSize = 16
 
-
-//reference to grid container. Needed for createGrid function
-const gridContainer = document.querySelector('#grid-container');
-
+const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
 const buttonGridSize = document.querySelector('#button-grid-size');
+
+//when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
+window.onload = function() {
+    createGrid(defaultGridSize);
+}
 
 buttonGridSize.addEventListener('click', () => {
     let size = takeGridSize();
     createGrid(size);
-    activateSketching();
-})
+});
 
 
 
@@ -19,19 +21,33 @@ buttonGridSize.addEventListener('click', () => {
 
 
 
-
-
+//this function prompts the user to enter a number between 1 and 64 inclusive for a grid size
 function takeGridSize() {
-    //taking input of grid size
-    let gridSize = +prompt("Enter size of grid(max 64");
+    
+    let correctInput, gridSize;
+    do {
+        gridSize = +prompt("Enter size of new grid(1-64)");
+        if(gridSize >= 1 && gridSize <= 64) correctInput = true;
+
+        else {
+            alert("Please enter a valid number.")
+            correctInput = false;
+        } 
+    }while(correctInput == false)
+    
     return gridSize;
 }
 
 
-
+//creates a new grid by appending squares inside gridContainer
 function createGrid(size) {
-    let sizeSq = size ** 2;
 
+    //this while loop will delete all the current square (IF ANY) to create space to add new squares
+    while(gridContainer.lastChild) {
+        gridContainer.removeChild(gridContainer.lastChild)
+    }
+
+    let sizeSq = size ** 2;
 
     //calcuating square width and height accroding to grid size
     let squareDimension = ( containerDimension - (2*size * squareBorder) ) / size;
@@ -45,15 +61,15 @@ function createGrid(size) {
         gridSquare.style.height = squareDimension + 'px';
         gridContainer.appendChild(gridSquare);
     }
-}
 
+    //the boxes have been created and appended to the grid. now the grid is visible. 
+    //this code will add a mouseover eventlistener to each squarebox that has been created. that is, this will activate sketching
+    
+    const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares 
 
-function activateSketching() {
-    const gridSquare = document.querySelectorAll('.grid-square');
-    gridSquare.forEach((square) => {
-
+    gridSquare.forEach((square) => {  //using for each to iterate over each square box and adding eventlistener
     square.addEventListener('mouseover', () => {
-        square.style['background-color'] = "black";
-    })  
-});
+    square.style['background-color'] = "black";
+    });
+    })
 }

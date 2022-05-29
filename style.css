@@ -2,21 +2,25 @@
 #tools-and-grid {
   display: flex;
   justify-content: space-between;
-  margin: 0px 30px;
+  margin: 0px 60px;
 }
 
 #grid-container {
-    width: 350px;
-    height: 350px;
+    width: 600px;
+    height: 600px;
     border: 1px black solid;
     display: flex;
     flex-wrap: wrap;
 }
 
-
 .grid-square { 
 
     border: 1px solid orange;
+}
+
+#tools {
+  display: flex;
+  flex-direction: column;
 }
 
 
