@@ -1,27 +1,31 @@
-let containerDimension = 350; //600px
-let squareBorder = 1; //1px border
+const containerDimension = 350; //600px
+const squareBorder = 1; //1px border
 
 
 //reference to grid container. Needed for createGrid function
 const gridContainer = document.querySelector('#grid-container');
 
+const buttonGridSize = document.querySelector('#button-grid-size');
 
-//taking input of grid size
-let gridSize = +prompt("Enter size of grid(max 64");
-
-createGrid(gridSize);
-
-
-const gridSquare = document.querySelectorAll('.grid-square');
-gridSquare.forEach((square) => {
-
-    square.addEventListener('mouseover', () => {
-        square.style['background-color'] = "black";
-    })  
-});
+buttonGridSize.addEventListener('click', () => {
+    let size = takeGridSize();
+    createGrid(size);
+    activateSketching();
+})
 
 
 
+
+
+
+
+
+
+function takeGridSize() {
+    //taking input of grid size
+    let gridSize = +prompt("Enter size of grid(max 64");
+    return gridSize;
+}
 
 
 
@@ -41,4 +45,15 @@ function createGrid(size) {
         gridSquare.style.height = squareDimension + 'px';
         gridContainer.appendChild(gridSquare);
     }
+}
+
+
+function activateSketching() {
+    const gridSquare = document.querySelectorAll('.grid-square');
+    gridSquare.forEach((square) => {
+
+    square.addEventListener('mouseover', () => {
+        square.style['background-color'] = "black";
+    })  
+});
 }
