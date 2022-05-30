@@ -74,3 +74,26 @@ function createGrid(size) {
     });
     })
 }
+
+function randomRGB() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    let color = `rgb(${r},${g},${b})`;
+
+    return color;
+}
+
+
+const multicolor = document.querySelector('#multicolor');
+
+multicolor.addEventListener('click', () => {
+    const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares
+
+    gridSquare.forEach((square) => {  //using for each to iterate over each square box and adding eventlistener
+        square.addEventListener('mouseover', () => {
+        square.style['background-color'] = randomRGB();
+    });
+    })
+})
+
