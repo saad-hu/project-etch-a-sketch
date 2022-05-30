@@ -75,6 +75,7 @@ function createGrid(size) {
     })
 }
 
+//this function returns a random rgb color in the form "rgb(#,#,#)"
 function randomRGB() {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
