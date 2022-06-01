@@ -4,6 +4,7 @@ const defaultGridSize = 16;
 
 const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
 const buttonGridSize = document.querySelector('#button-grid-size'); //reference to change grid size button
+const multicolor = document.querySelector('#multicolor'); //refernce to multicolor/rainbow button
 
 //when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
 window.onload = function() {
@@ -16,6 +17,16 @@ buttonGridSize.addEventListener('click', () => {
     if(size != "canceled") createGrid(size);  //if the function takeGridSize returns cancelled, no grid will be created, hence users previous drawing will be restored
 });
 
+
+multicolor.addEventListener('click', () => {
+    const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares
+
+    gridSquare.forEach((square) => {  //using for each to iterate over each square box and adding eventlistener
+        square.addEventListener('mouseover', () => {
+        square.style['background-color'] = randomRGB();
+    });
+    })
+})
 
 
 //this function prompts the user to enter a number between 1 and 64 inclusive for a grid size
@@ -69,9 +80,18 @@ function createGrid(size) {
     const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares 
 
     gridSquare.forEach((square) => {  //using for each to iterate over each square box and adding eventlistener
-    square.addEventListener('mouseover', () => {
-    square.style['background-color'] = "black";
+    square.addEventListener('mouseover', (event) => {
+        console.log(event.buttons);
+        if(event.buttons == 1) {
+            square.style['background-color'] = "black";
+        }
     });
+    })
+
+    gridSquare.forEach((square) => {
+        square.addEventListener('mousedown', () => {
+            square.style['background-color'] = "black";
+        })
     })
 }
 
@@ -86,15 +106,5 @@ function randomRGB() {
 }
 
 
-const multicolor = document.querySelector('#multicolor');
-
-multicolor.addEventListener('click', () => {
-    const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares
-
-    gridSquare.forEach((square) => {  //using for each to iterate over each square box and adding eventlistener
-        square.addEventListener('mouseover', () => {
-        square.style['background-color'] = randomRGB();
-    });
-    })
-})
-
+//create and activate sketching function. it will have a variable color. if rainbow is pressed, color will have random function wlse it will have black
+//this coloe variable will go into: square.style['background-color'] = color;
