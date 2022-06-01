@@ -3,7 +3,7 @@ const squareBorder = 1; //1px border
 const defaultGridSize = 16;
 
 const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
-const buttonGridSize = document.querySelector('#button-grid-size');
+const buttonGridSize = document.querySelector('#button-grid-size'); //reference to change grid size button
 
 //when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
 window.onload = function() {
@@ -13,7 +13,7 @@ window.onload = function() {
 //adding an event to change grid button
 buttonGridSize.addEventListener('click', () => {
     let size = takeGridSize();
-    createGrid(size);
+    if(size != "canceled") createGrid(size);  //if the function takeGridSize returns cancelled, no grid will be created, hence users previous drawing will be restored
 });
 
 
@@ -24,7 +24,7 @@ function takeGridSize() {
     let correctInput, gridSize;
     do {
         gridSize = prompt("Enter size of new grid(1-64)");
-        if(gridSize == null) return defaultGridSize;    //when the user presses cancel or escape
+        if(gridSize == null) return "canceled";    //when the user presses cancel or escape. returns a string "canceled" so we can check to create a grid or not.
 
         else if(gridSize >= 1 && gridSize <= 64) correctInput = true;
 
