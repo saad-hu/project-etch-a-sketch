@@ -1,20 +1,21 @@
 const containerDimension = 600; //600px
 const squareBorder = 1; //1px border
 const defaultGridSize = 16;
-let black = true;
-let rainbow = false;
-let eraser = false;
+
 
 const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
 const buttonGridSize = document.querySelector('#button-grid-size'); //reference to change grid size button
-const multicolorButton = document.querySelector('#multicolor-button'); //refernce to multicolor/rainbow button
+const multicolorButton = document.querySelector('#multicolor-button'); //refernce to multicolor button
 const blackButton = document.querySelector('#black-mode-button');
 const eraserButton = document.querySelector('#eraser-button');
+
+let buttonsReferenceArray = [multicolorButton, blackButton, eraserButton]; //an array of references to buttons. This will be used in popButton() function
 
 //when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
 window.onload = function() {
     createGrid(defaultGridSize);
     activateBlack();
+    popButton(blackButton); 
 }
 
 //adding an event to change grid button
@@ -26,6 +27,7 @@ buttonGridSize.addEventListener('click', () => {
     if(size != "canceled") {
         createGrid(size);
         activateBlack();
+        popButton(blackButton);
     }  
 });
 
@@ -33,17 +35,20 @@ buttonGridSize.addEventListener('click', () => {
 blackButton.addEventListener('click', () => {
     black = true;
     activateBlack();
+    popButton(blackButton);
 })
 
 
 multicolorButton.addEventListener('click', () => {
-    rainbow = true;
-    activateRainbow();
+    multicolor = true;
+    activateMulticolor();
+    popButton(multicolorButton);
 })
 
 eraserButton.addEventListener('click', () => {
     black = true;
     activateEraser();
+    popButton(eraserButton);
 })
 
 //this function prompts the user to enter a number between 1 and 64 inclusive for a grid size
@@ -124,7 +129,7 @@ function activateBlack() {
 }
 
 
-function activateRainbow() {
+function activateMulticolor() {
     //this code will add a mouseover and mousedown eventlistener to each squarebox that has been created. that is, this will activate sketching
     const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares 
 
@@ -156,4 +161,17 @@ function activateEraser() {
             square.style['background-color'] = "white";
         });
     })
+}
+
+
+function popButton(button) {
+
+    for(let i = 0; i<3; i++) {
+        if(buttonsReferenceArray[i] == button) {
+            buttonsReferenceArray[i].style.cssText = "background-color: darkblue"; 
+        }
+        else {
+            buttonsReferenceArray[i].style = "none";
+        }
+    }
 }
