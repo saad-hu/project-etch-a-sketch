@@ -37,7 +37,7 @@ body {
 }
 
 #button-grid-size, #multicolor-button, #black-mode-button, #eraser-button {
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px 20px;
   border: 2px white solid;
   border-radius: 10px;
@@ -46,7 +46,7 @@ body {
 }
 
 #button-grid-size:hover, #multicolor-button:hover, #black-mode-button:hover, #eraser-button:hover {
-  font-size: 18px;
+  font-size: 20px;
   padding: 10px 20px;
   border: 2px white solid;
   border-radius: 10px;
