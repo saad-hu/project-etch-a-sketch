@@ -35,7 +35,7 @@ body {
   gap: 40px;
 }
 
-#button-grid-size, #multicolor {
+#button-grid-size, #multicolor, #black-mode-button, #eraser-button {
   font-size: 18px;
   padding: 10px 20px;
   border: 2px white solid;
@@ -44,7 +44,7 @@ body {
   color: white;
 }
 
-#button-grid-size:hover, #multicolor:hover {
+#button-grid-size:hover, #multicolor:hover, #black-mode-button:hover, #eraser-button:hover {
   font-size: 18px;
   padding: 10px 20px;
   border: 2px white solid;
