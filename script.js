@@ -21,7 +21,7 @@ window.onload = function() {
 }
 
 //adding event listener to the color input form control, so that any changes occur, the sketching color is changed via the activateSketching() function
-colorInput.addEventListener('change', () => {
+colorInput.addEventListener('input', () => {
     activateSketching(colorInput.value);
 })
 
