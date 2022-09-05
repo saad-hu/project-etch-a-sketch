@@ -6,17 +6,24 @@ const defaultGridSize = 16;
 const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
 const buttonGridSize = document.querySelector('#button-grid-size'); //reference to change grid size button
 const multicolorButton = document.querySelector('#multicolor-button'); //refernce to multicolor button
-const blackButton = document.querySelector('#black-mode-button');
 const eraserButton = document.querySelector('#eraser-button');
 
-let buttonsReferenceArray = [multicolorButton, blackButton, eraserButton]; //an array of references to buttons. This will be used in popButton() function
+
+let buttonsReferenceArray = [multicolorButton, eraserButton]; //an array of references to buttons. This will be used in popButton() function
+
+//reference to the color input form control
+let colorInput = document.querySelector('#user-color');
 
 //when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
 window.onload = function() {
     createGrid(defaultGridSize);
-    activateBlack();
-    popButton(blackButton); 
+    activateSketching(colorInput.value);
 }
+
+//adding event listener to the color input form control, so that any changes occur, the sketching color is changed via the activateSketching() function
+colorInput.addEventListener('change', () => {
+    activateSketching(colorInput.value);
+})
 
 //adding an event to change grid button
 buttonGridSize.addEventListener('click', () => {
@@ -26,17 +33,9 @@ buttonGridSize.addEventListener('click', () => {
     //if the function takeGridSize returns cancelled, no grid will be created, hence users previous drawing will be restored
     if(size != "canceled") {
         createGrid(size);
-        activateBlack();
-        popButton(blackButton);
+        activateSketching();
     }  
 });
-
-
-blackButton.addEventListener('click', () => {
-    black = true;
-    activateBlack();
-    popButton(blackButton);
-})
 
 
 multicolorButton.addEventListener('click', () => {
@@ -110,7 +109,7 @@ function randomRGB() {
 }
 
 
-function activateBlack() {
+function activateSketching(color) {
     //this code will add a mouseover and mousedown eventlistener to each squarebox that has been created. that is, this will activate sketching
     const gridSquare = document.querySelectorAll('.grid-square'); //nodelist of all squares 
 
@@ -118,12 +117,12 @@ function activateBlack() {
     gridSquare.forEach((square) => {
         square.addEventListener('mouseover', (e) => {
             if(e.buttons == 1) {
-                square.style['background-color'] = "black";
+                square.style['background-color'] = color;
             }
         });
 
         square.addEventListener('mousedown', () => {
-            square.style['background-color'] = "black";
+            square.style['background-color'] = color;
         });
     })
 }
@@ -166,7 +165,7 @@ function activateEraser() {
 
 function popButton(button) {
 
-    for(let i = 0; i<3; i++) {
+    for(let i = 0; buttonsReferenceArray.length; i++) {
         if(buttonsReferenceArray[i] == button) {
             buttonsReferenceArray[i].style.cssText = "background-color: darkblue"; 
         }
