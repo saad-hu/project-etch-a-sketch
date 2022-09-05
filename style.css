@@ -1,18 +1,31 @@
+@font-face {
+  font-family: norse;
+  src: url(./fonts/Norse-Bold.otf);
+}
+
+@font-face {
+  font-family: poppins;
+  src: url(./fonts/Poppins-Medium.ttf);
+}
+
 h1 {
-  font-size: 50px;
+  font-family: norse;
+  font-size: 60px;
   color: blue;
+  margin: 0;
+  padding-bottom: 20px;
   text-align: center;
 }
 
 body {
   background-color: black;
   color: white;
+  font-family: poppins;
 }
 
 #tools-and-grid {
   display: flex;
   justify-content: space-evenly;
-  margin: 30px 60px;
 }
 
 #grid-container {
@@ -37,7 +50,8 @@ body {
   padding-top: 50px;
 }
 
-#button-grid-size, #multicolor-button, #black-mode-button, #eraser-button {
+#button-grid-size, #multicolor-button, #eraser-button {
+  font-family: poppins;
   font-size: 20px;
   padding: 10px 20px;
   border: 2px white solid;
@@ -46,12 +60,24 @@ body {
   color: white;
 }
 
-#button-grid-size:hover, #multicolor-button:hover, #black-mode-button:hover, #eraser-button:hover {
-  font-size: 20px;
-  padding: 10px 20px;
-  border: 2px white solid;
-  border-radius: 10px;
+#button-grid-size:hover, #multicolor-button:hover, #eraser-button:hover {
   background-color: rgb(73, 73, 73);
-  color: white;
 }
 
+
+/* style for color input */
+input[type='color']{
+  box-sizing: border-box;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  background-color: grey;
+  width: 100px;
+  height: 50px;
+  vertical-align: middle;
+}
+
+label {
+  font-size: 18px;
+  padding-left: 5px;
+}
