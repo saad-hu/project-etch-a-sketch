@@ -4,7 +4,6 @@ const defaultGridSize = 16;
 
 
 const gridContainer = document.querySelector('#grid-container'); //reference to grid container. Needed for createGrid function
-const buttonGridSize = document.querySelector('#button-grid-size'); //reference to change grid size button
 const multicolorButton = document.querySelector('#multicolor-button'); //refernce to multicolor button
 const eraserButton = document.querySelector('#eraser-button');
 
@@ -14,29 +13,21 @@ let buttonsReferenceArray = [multicolorButton, eraserButton]; //an array of refe
 //reference to the color input form control
 let colorInput = document.querySelector('#user-color');
 
+//refernce to slider form control for grid size and it's display output element
+let gridSizeSlider = document.querySelector("#grid-size-slider");
+let sizeOutput = document.querySelector('#sizeOutput');
+
 //when the window loads, this will create a grid using the dafault grid size decalred on top of the code(16)
-window.onload = function() {
-    createGrid(defaultGridSize);
+window.onload = function () {
+    createGrid(gridSizeSlider.value);
     activateSketching(colorInput.value);
+    displayGridSize();
 }
 
 //adding event listener to the color input form control, so that any changes occur, the sketching color is changed via the activateSketching() function
 colorInput.addEventListener('input', () => {
     activateSketching(colorInput.value);
 })
-
-//adding an event to change grid button
-buttonGridSize.addEventListener('click', () => {
-    let size = takeGridSize();
-
-
-    //if the function takeGridSize returns cancelled, no grid will be created, hence users previous drawing will be restored
-    if(size != "canceled") {
-        createGrid(size);
-        activateSketching();
-    }  
-});
-
 
 multicolorButton.addEventListener('click', () => {
     multicolor = true;
@@ -50,54 +41,6 @@ eraserButton.addEventListener('click', () => {
     popButton(eraserButton);
 })
 
-//this function prompts the user to enter a number between 1 and 64 inclusive for a grid size
-function takeGridSize() {
-    
-    let correctInput, gridSize;
-    do {
-        gridSize = prompt("Enter size of new grid(1-64)");
-        if(gridSize == null) return "canceled";    //when the user presses cancel or escape. returns a string "canceled" so we can check to create a grid or not.
-
-        else if(gridSize >= 1 && gridSize <= 64) correctInput = true;
-
-        else {
-            alert("Please enter a valid number.")
-            correctInput = false;
-        } 
-    }while(correctInput == false)
-    
-    return gridSize;
-}
-
-
-//creates a new grid by appending squares inside gridContainer
-function createGrid(size) {
-
-    //this while loop will delete all the current square (IF ANY) to create space to add new squares
-    while(gridContainer.lastChild) {
-        gridContainer.removeChild(gridContainer.lastChild)
-    }
-
-    let sizeSq = size ** 2;
-
-    //calcuating square width and height accroding to grid size
-    let squareDimension = ( containerDimension - (2*size * squareBorder) ) / size;
-
-    
-    //this loop creates a square in memory according to the calcuated dimensions, and then appends that square to the grid-container
-    for (let i = 0; i < sizeSq; i++) {
-        const gridSquare = document.createElement('div');
-        gridSquare.classList.add('grid-square');
-        
-        gridSquare.style.width = squareDimension + 'px'; 
-        gridSquare.style.height = squareDimension + 'px';
-        gridContainer.appendChild(gridSquare);
-    }
-
-    //the boxes have been created and appended to the grid. now the grid is visible. 
-}
-
-
 //this function returns a random rgb color in the form "rgb(#,#,#)"
 function randomRGB() {
     let r = Math.floor(Math.random() * 256);
@@ -108,6 +51,32 @@ function randomRGB() {
     return color;
 }
 
+//creates a new grid by appending squares inside gridContainer
+function createGrid(size) {
+
+    //this while loop will delete all the current square (IF ANY) to create space to add new squares
+    while (gridContainer.lastChild) {
+        gridContainer.removeChild(gridContainer.lastChild)
+    }
+
+    let sizeSq = size ** 2;
+
+    //calcuating square width and height accroding to grid size
+    let squareDimension = (containerDimension - (2 * size * squareBorder)) / size;
+
+
+    //this loop creates a square in memory according to the calcuated dimensions, and then appends that square to the grid-container
+    for (let i = 0; i < sizeSq; i++) {
+        const gridSquare = document.createElement('div');
+        gridSquare.classList.add('grid-square');
+
+        gridSquare.style.width = squareDimension + 'px';
+        gridSquare.style.height = squareDimension + 'px';
+        gridContainer.appendChild(gridSquare);
+    }
+
+    //the boxes have been created and appended to the grid. now the grid is visible. 
+}
 
 function activateSketching(color) {
     //this code will add a mouseover and mousedown eventlistener to each squarebox that has been created. that is, this will activate sketching
@@ -116,7 +85,7 @@ function activateSketching(color) {
 
     gridSquare.forEach((square) => {
         square.addEventListener('mouseover', (e) => {
-            if(e.buttons == 1) {
+            if (e.buttons == 1) {
                 square.style['background-color'] = color;
             }
         });
@@ -134,7 +103,7 @@ function activateMulticolor() {
 
     gridSquare.forEach((square) => {
         square.addEventListener('mouseover', (e) => {
-            if(e.buttons == 1) {
+            if (e.buttons == 1) {
                 square.style['background-color'] = randomRGB();
             }
         });
@@ -151,7 +120,7 @@ function activateEraser() {
 
     gridSquare.forEach((square) => {
         square.addEventListener('mouseover', (e) => {
-            if(e.buttons == 1) {
+            if (e.buttons == 1) {
                 square.style['background-color'] = "white";
             }
         });
@@ -165,12 +134,27 @@ function activateEraser() {
 
 function popButton(button) {
 
-    for(let i = 0; buttonsReferenceArray.length; i++) {
-        if(buttonsReferenceArray[i] == button) {
-            buttonsReferenceArray[i].style.cssText = "background-color: darkblue"; 
+    for (let i = 0; i < buttonsReferenceArray.length; i++) {
+        if (buttonsReferenceArray[i] == button) {
+            buttonsReferenceArray[i].style.cssText = "background-color: darkblue";
         }
         else {
             buttonsReferenceArray[i].style = "none";
         }
     }
 }
+
+
+//slider code starts here
+//when the slider is moved, this event listener will display the changing value(grid size)
+gridSizeSlider.addEventListener('input', displayGridSize);
+
+function displayGridSize() {
+    sizeOutput.textContent = `${gridSizeSlider.value}x${gridSizeSlider.value}`;
+}
+
+//when the slider is moved, stoped and released, this event listener will change the grid size 
+gridSizeSlider.addEventListener('change', () => {
+    createGrid(gridSizeSlider.value);
+    activateSketching(colorInput.value);
+});
