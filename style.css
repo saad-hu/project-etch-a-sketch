@@ -40,6 +40,8 @@ body {
 
 .grid-square { 
     border: 1px solid grey;
+    cursor: crosshair;
+    user-select: none;
 }
 
 #tools {
