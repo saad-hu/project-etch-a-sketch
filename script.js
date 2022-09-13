@@ -27,6 +27,7 @@ window.onload = function () {
 //adding event listener to the color input form control, so that any changes occur, the sketching color is changed via the activateSketching() function
 colorInput.addEventListener('input', () => {
     activateSketching(colorInput.value);
+    popButton(); //if multicolor or eraser button was active(highlighted) before selectin color, those will now become inactive
 })
 
 multicolorButton.addEventListener('click', () => {
@@ -157,4 +158,5 @@ function displayGridSize() {
 gridSizeSlider.addEventListener('change', () => {
     createGrid(gridSizeSlider.value);
     activateSketching(colorInput.value);
+    popButton(); //if multicolor or eraser button was active(highlighted) before changing grid size, those will now become inactive
 });
