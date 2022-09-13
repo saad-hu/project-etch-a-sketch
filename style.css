@@ -36,12 +36,17 @@ body {
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 .grid-square { 
     border: 1px solid grey;
     cursor: crosshair;
-    user-select: none;
+
 }
 
 #tools {
