@@ -3,13 +3,12 @@
 ## Visit my project
 [Click here](https://saad-hu.github.io/project-etch-a-sketch/) for a live demo.
 
-## Screenshots
-#### Desktop View
-![image1](/images/calc-demo.png)
-#### Mobile View
-![image2](/images/calc-mob-demo.png)
+## Screenshots (Please ignore my coloring skills)
+![image1](/images/sketch-demo.png)
+
+![image1](/images/sketch-color-demo.png)
+
 
 ## Description and Outcome
-This calculator performs all the necessary mathematical calculations. 
-I learned about event handling in this project, and how to write clean code with functions. 
+A sketching application similar to a sketchpad and Microsoft Paint. 
 Build using vanilla JavaScript, CSS and HTML.
