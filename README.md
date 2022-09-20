@@ -4,7 +4,7 @@
 [Click here](https://saad-hu.github.io/project-etch-a-sketch/) for a live demo.
 
 ## Screenshots
-Note: Please ignore my coloring skills
+Note: Please ignore my pitiful coloring skills...
 ![image1](/images/sketch-demo.png)
 
 ![image1](/images/etch-color-demo.png)
