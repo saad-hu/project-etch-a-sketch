@@ -1,4 +1,4 @@
-# Calculator
+# Etch A Sketch
 
 ## Visit my project
 [Click here](https://saad-hu.github.io/project-etch-a-sketch/) for a live demo.
